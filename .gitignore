@@ -1,0 +1,7 @@
+#Ignore Matlab and LaTeX files:
+.log
+.m
+!dsge.m
+.aux
+.gz
+.pdf
