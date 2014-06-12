@@ -8,10 +8,10 @@ close all;
 % 1. Defining variables
 %----------------------------------------------------------------
 
-var chh chf cfh cff sh sfh ph pf b2 b2h b2f b1h b1f b Ri Ri2 Ri1 tau_f tau g dh df;
-varexo sff e_dh e_df e_b e_g hh hf w g_ss t_ss d_ss;
+var chh chf cfh cff shh sfh sff sh ph pf b2 b2hh b2fh b1ff R1h R2h R1f gf gh dh df;
+varexo sh sff e_dh e_df e_b2 e_b1;
  
-parameters phi_b phi_bf phi_s phi_sf rho_g rho_b rho_d psi beta;
+parameters beta phi_b phi_bf phi_s phi_sf alpha_bh alpha_bf alpha_dh alpga_df;
 
 %----------------------------------------------------------------
 % 2. Calibration   - SET PHI low (<1) and get sensible IRFs but b2<0.
