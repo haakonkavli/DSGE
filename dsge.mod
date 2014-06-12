@@ -8,59 +8,60 @@ close all;
 % 1. Defining variables
 %----------------------------------------------------------------
 
-var chh chf cfh cff shh sfh sff sh ph pf b2 b2hh b2fh b1ff R1h R2h R1f gf gh dh df;
-varexo sh sff e_dh e_df e_b2 e_b1;
+var chh chf cfh cff shh sfh ph pf b1hh b1fh b2 b2hh b2fh b1ff R1h R2h R1f gf gh dh df;
+varexo sh sff e_dh e_df e_b2 e_b1 d_ssh d_ssf;
  
-parameters beta phi_b phi_bf phi_s phi_sf alpha_bh alpha_bf alpha_dh alpga_df;
+parameters beta phi_b phi_bff phi_bfh phi_s phi_sfg phi_sfh tau_c alpha_bh alpha_bf alpha_dh alpga_df;
 
 %----------------------------------------------------------------
-% 2. Calibration   - SET PHI low (<1) and get sensible IRFs but b2<0.
-%                        PHI high (>1) and get strange IRF but b2>0
+% 2. Calibration   
 %----------------------------------------------------------------
 
+beta       = 0.9975;   
+phi_b      = 1.2;
+phi_bfh    = 1.5;
+phi_bff    = 1.0;
+phi_s      = 1.2;
+phi_sfh    = 1.5;
+phi_sff    = 1.0;
+tau_c      = 0.01;
+beta       = 0.9975;
+alpha_bh   = 0.6;
+alpha_bf   = 0.6;
+alpha_dh   = 0.6;
+alpga_df   = 0.6;
 
-phi_b   = 2.6;
-phi_bf  = 1.5;
-phi_s   = 2;
-phi_sf = 1.5;
-beta    = 0.9975;
-rho_g   = 0.6;
-rho_b   = 0.6;
-rho_d   = 0.6;
-psi    = 0.3;
 %----------------------------------------------------------------
 % 3. Model
 %----------------------------------------------------------------
 
 model;    
-%Home agent FOCs:
-    chh     =chf;                      
-    Ri1     =beta*(chh/chh(+1));
-    Ri2     =(beta*(chh/chh(+1))*(Ri1(+1)+phi_b*((b2h(+1)-b2h)/b2h^2)*(1+((b2h(+1)-b2h)/b2h))))-phi_b*((b2h-b2h(-1))/b2h(-1)^2);
-    ph      =beta*(chh/chh(+1))*(ph(+1)+dh(+1)+phi_s*((sh(+1)-sh)/sh^2)*(1+(sh(+1)-sh)/sh))-phi_s*(sh-sh(-1))/sh(-1)^2;
-    chh+chf+ph*sh+Ri2*b2h+Ri1*b1h-w*hh-ph*sh(-1)-dh*sh(-1)-Ri1*b2h(-1)-b1h(-1)-tau+(phi_s/2)*(((sh-sh(-1))^2)/sh(-1))+(phi_b/2)*(((b2h-b2h(-1))^2)/b2h(-1));
+%Home agent FOCs: %FINISHED
+    chh     =chf*(1+tau_c);                      
+    R1h     =(beta*(chh/chh(+1))*(1+phi_b*(b1hh(+1)-b1hh))-phi_b*(b1hh-b1hh(-1));
+    R2h     =(beta*(chh/chh(+1))*(R1h(+1)+phi_b*(b2hh(+1)-b2hh))-phi_b*(b2hh-b2hh(-1));
+    ph      =beta*(chh/chh(+1))*(ph(+1)+dh(+1)+phi_s*(shh(+1)-shh))-phi_s*(shh-shh(-1));
 %Foreign agent FOCs:
-    cfh     =cff;  
-    Ri      =beta*cfh/cfh(+1);
-    Ri1     =beta*cfh/cfh(+1);
-    Ri2     =(beta*(cfh/cfh(+1))*(Ri1(+1)+phi_bf*((b2f(+1)-b2f)/b2f^2)*(1+((b2f(+1)-b2f)/b2f))))-phi_bf*((b2f-b2f(-1))/b2f(-1)^2);
-    ph      =beta*(cfh/cfh(+1))*(ph(+1)+dh(+1)+phi_sf*((sfh(+1)-sfh)/sfh^2)*(1+(sfh(+1)-sfh)/sfh))-phi_sf*(sfh-sfh(-1))/sfh(-1)^2;
-    pf      =beta*(cfh/cfh(+1))*(pf(+1)+df(+1)+phi_sf*((sff(+1)-sff)/sff^2)*(1+(sff(+1)-sff)/sff))-phi_sf*(sff-sff(-1))/sff(-1)^2;
-    cfh+cff+ph*sfh+pf*sff+Ri2*b2f+Ri*b+Ri1*b1f-w*hf-ph*sfh(-1)-dh*sfh(-1)-pf*sff(-1)-df*sff(-1)-Ri1*b2f(-1)-tau_f+(phi_sf/2)*(((sfh-sfh(-1))^2)/sfh(-1))+(phi_sf/2)*(((sff-sff(-1))^2)/sff(-1))+(phi_bf/2)*(((b2f-b2f(-1))^2)/b2f(-1));
+    cff     =cfh*(1+tau_c);  
+    R1f     =beta*cff/cff(+1);
+    R1h     =
+    R2h     =Rf*Rh(+1)-phi_bf*(b2fh-b2fh(-1));
+    ph      =R1f*(ph(+1)+dh(+1))-phi_sfh*(sfh-sfh(-1));
+    pf      =R1f*(pf(+1)+df(+1))-phi_sff*(sff-sff(-1));
 %Home Government:
-    b1h+b1f =b2(-1);
-    b2      =b2h+b2f;
-    g       =tau+Ri2*b2-b2(-2);
-    tau     =g_ss+t_ss+psi*(Ri1*b2(-1)+b2(-2));
-    g       =g_ss*(1-rho_g)+rho_g*g(-1)+e_g;
-%Global Central Bank:
-    tau_f   =Ri*b-b(-1);
-    b       =rho_b*b(-1)+e_b;
+    b2      =b2hh+b2fh;
+    b2      =(1-alpha_bh)+alpha_bh*b2(-1)+e_b2;
+    g       =b2*R2h-b2(-1)*R1h;
+%Foreign Government:
+    gf      =R1f*b1ff-b1ff(-1);
+    b1ff    =(1-alpha_bf)+alpha_bf*b1ff(-1)+e_b1;
 %Firms:
-    dh      =d_ss*(1-rho_d)+e_dh;
-    df      =d_ss*(1-rho_d)+e_df;
-%Aggregate:
-    sfh+sh  =1;
+    sfh+shh  =sh;
+    dh      =d_ssh*(1-alpha_dh)+alpha_dh*dh(-1)+e_dh;
+    df      =d_ssf*(1-alpha_df)+alpha_df*df(-1)+e_df;
+%Budget constraints:
+    chh+cfh+gh=dh-(phi_b-2)*(b2hh-b2hh(-1))^2-(phi_bfh-2)*(b2fh-b2fh(-1))^2-(phi_s/2)*(shh-shh(-1))^2-(phi_sfh/2)*(sfh-sfh(-1))^2-tau_c*cfh;
+    chf+cff+gf=df-(phi_sff)*(sff-sff(-1))^2;
 end;
 
 %----------------------------------------------------------------
@@ -68,6 +69,7 @@ end;
 %----------------------------------------------------------------
 
 initval;
+    sh=1;
     sff=1;
     e_dh=0;
     e_df=0; 

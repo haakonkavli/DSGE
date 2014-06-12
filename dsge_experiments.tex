@@ -12,40 +12,55 @@
 \begin{abstract}
 Experimental DSGE models of capital flows. 
 \end{abstract}
-\subsection{Home household with priamary market 2 period bond and secondary market shares}
-\begin{align}
-&\max \Sigma_{i=0}^\infty \beta^i u(c_{t+i}) &&\text{s.t}\\
-&c_t+\tau_t+R_{2,t} b_{2,t} + \frac{\Phi_b}{2}(b_{2,t}-b_{2,t-1})^2 + p_ts_t+\frac{\Phi_s}{2}(s_t-s_{t-1})^2=s_{t-1} (p_t+d_t) + R_{1,t} b_{2,t-1}\\
-&R_{2,t} \equiv E_t\bigg(\frac{1}{(1+r_{t+1})(1+r_{t+2})} \bigg), R_{1,t} \equiv E_t\bigg(\frac{1}{1+r_{t+1}} \bigg)
-\end{align}
+\subsection{Home household with 2 period bond, 1 period bond and shares}
+\begin{align*}
+&\max \Sigma_{i=0}^\infty \beta^i u(c_{t+i})\\ &\text{s.t}\\
+&c^{hh}_t+c^{hf}_t(1+\tau_c)+R^h_{2,t} b^{hh}_{2,t} + \frac{\Phi_b}{2}(b^{hh}_{2,t}-b^{hh}_{2,t-1})^2 +
+R^h_{1,t} b^{hh}_{1,t} + \frac{\Phi_b}{2}(b^{hh}_{1,t}-b^{hh}_{1,t-1})^2 + p^{h}_t s^{hh}_t+\frac{\Phi_s}{2}(s^{hh}_t-s^{hh}_{t-1})^2\\
+&=g^h_t+s^{hh}_{t-1}(p^{h}_t+d^{h}_t)+R^{h}_{1,t}b^{hh}_{2,t-1}+b^h_{1,t-1}\\
+&R^h_{2,t} \equiv E_t\bigg(\frac{1}{(1+r_{t+1})(1+r_{t+2})} \bigg), R_{1,t} \equiv E_t\bigg(\frac{1}{1+r_{t+1}} \bigg)
+\end{align*}
 FOCs:
+\begin{align*}
+&\frac{1}{c^{hh}_t}=-\lambda_t\\
+&\frac{1}{c^{hf}_t(1+\tau_c)}=-\lambda_t \\
+&\lambda_t\big[R^h_{1,t}+\Phi_b (b^{hh}_{1,t}-b^{hh}_{1,t-1})\big ]+ \lambda_{t+1} \beta \big[\Phi_b (b^{hh}_{1,t} - b^{hh}_{1,t+1})]-\lambda_{t+1}\beta =0\\
+&\lambda_t\big[R^h_{2,t}+\Phi_b (b^{hh}_{2,t}-b^{hh}_{2,t-1})\big ]+ \lambda_{t+1} \beta \big[\Phi_b (b^{hh}_{2,t} - b^{hh}_{2,t+1})]-\lambda_{t+1}\beta R^{h}_{1,t+1}=0\\
+&\lambda_t \big[p^{h}_t + \Phi_s (s^{hh}_t-s^{hh}_{t-1})\big] + \lambda_{t+1} \beta \big[\Phi_s  (s^{hh}_t-s^{hh}_{t+1}) - p^{h}_{t+1}-d^{h}_{t+1}\big]=0
+\end{align*}
+Solve:
 \begin{align}
-&\frac{1}{c_t}=-\lambda_t\\
-&\lambda_t\big[R_{2,t}+\Phi_b (b_{2,t}-b_{2,t-1})\big ]+ \lambda_{t+1} \beta \big[\Phi_b (b_{2,t} - b_{2,t+1})]-\lambda_{t+1}\beta R_{1,t+1}=0\\
-&\lambda_t \big[p_t + \Phi_s (s_t-s_{t-1})\big] + \lambda_{t+1} \beta \big[\Phi_s  (s_t-s_{t+1}) - p_{t+1}-d_{t+1}\big]=0
-\end{align}
-Solve prices (demand functions):
-\begin{align}
-&R_{2,_t}=\frac{c_t}{c_{t+1}}\beta \big[\Phi_b (b_{2,t+1} - b_{2,t})+R_{1,t+1}\big] -\Phi_b (b_{2,t}-b_{2,t-1})\\
-&p_t=\frac{c_t}{c_{t+1}}\beta \bigg[ \Phi_s (s_{t+1}-s_t)+p_{t+1}+d_{t+1} \bigg] - \Phi_s (s_t - s_{t-1})
+&c^{hh}=c^{hf}(1+\tau_c)\\
+&R^h_{1,_t}=\frac{c^{hh}_t}{c^{hh}_{t+1}}\beta \big[1+\Phi_b (b^{hh}_{1,t+1} - b^{hh}_{1,t})\big] -\Phi_b (b^{hh}_{1,t}-b^{hh}_{1,t-1})\\
+&R^h_{2,_t}=\frac{c^{hh}_t}{c^{hh}_{t+1}}\beta \big[R^{h}_{1,t+1}+\Phi_b (b^{hh}_{2,t+1} - b^{hh}_{2,t})\big] -\Phi_b (b^{hh}_{2,t}-b^{hh}_{2,t-1})\\
+&p^{h}_t=\frac{c^{hh}_t}{c^{hh}_{t+1}}\beta \bigg[ \Phi_s (s^{hh}_{t+1}-s^{hh}_t)+p^{h}_{t+1}+d^{h}_{t+1} \bigg] - \Phi_s (s^{hh}_t - s^{hh}_{t-1})
 \end{align}
 
-\subsection{Foreign household with priamary market global 1 period bond, home 2 period bond and home secondary market shares}
-\begin{align}
-&\max \Sigma_{i=0}^\infty \beta^i u(c_{t+i}) &&\text{s.t}\\
-&c_t+\tau_t+R_{2,t} b_{2,t} \big[1+ \frac{\Phi_b}{2}(b_{2,t})^2 \big] + p_ts_t\big[1+\frac{\Phi_s}{2}(s_t-s_{t-1})^2\big]=s_{t-1} (p_t+d_t) + b_{2,t-1}\\
-&R_{2,t} \equiv E_t\bigg(\frac{1}{(1+r_{t+1})(1+r_{t+2})} \bigg)
-\end{align}
+\subsection{Foreign household with global 1 period bond and all home assets}
+\begin{align*}
+&\max \Sigma_{i=0}^\infty \beta^i u(c_{t+i})\\ &\text{s.t}\\
+&c^{ff}_t+c^{fh}_t(1+\tau_c)+R^h_{2,t} b^{fh}_{2,t} + \frac{\Phi_{bfh}}{2}(b^{fh}_{2,t}-b^{fh}_{2,t-1})^2 +
+R^h_{1,t} b^{fh}_{1,t} + \\ 
+&\frac{\Phi_{bfh}}{2}(b^{fh}_{1,t}-b^{fh}_{1,t-1})^2 + p^{h}_t s^{fh}_t+\frac{\Phi_{sfh}}{2}(s^{fh}_t-s^{fh}_{t-1})^2+R^f_{1,t}b^f_{1,t}\\&=g^f_t+s^{fh}_{t-1}(p^{h}_t+d^{h}_t)+R^{h}_{1,t}b^{fh}_{2,t-1}+b^h_{1,t-1}+b^f_{1,t-1}\\
+\end{align*}
+
+
 FOCs:
+\begin{align*}
+&\frac{1}{c^{ff}_t}=-\lambda^f_t\\
+&\frac{1}{c^{fh}_t(1+\tau_c)}=-\lambda^f_t \\
+&\lambda^f_t [R^f_{1,t}]-\lambda^f_{t+1}*\beta=0\\
+&\lambda^f_t\big[R^h_{1,t}+\Phi_{bfh} (b^{fh}_{1,t}-b^{fh}_{1,t-1})\big ]+ \lambda^f_{t+1} \beta \big[\Phi_{bfh} (b^{fh}_{1,t} - b^{fh}_{1,t+1})]-\lambda^f_{t+1}\beta =0\\
+&\lambda^f_t\big[R^f_{2,t}+\Phi_{bfh} (b^{fh}_{2,t}-b^{fh}_{2,t-1})\big ]+ \lambda^f_{t+1} \beta \big[\Phi_{bfh} (b^{fh}_{2,t} - b^{fh}_{2,t+1})]-\lambda^f_{t+1}\beta R^{h}_{1,t+1}=0\\
+&\lambda^f_t \big[p^{h}_t + \Phi_{sfh} (s^{fh}_t-s^{fh}_{t-1})\big] + \lambda^f_{t+1} \beta \big[\Phi_{sfh}  (s^{fh}_t-s^{fh}_{t+1}) - p^{h}_{t+1}-d^{h}_{t+1}\big]=0
+\end{align*}
+Solve:
 \begin{align}
-&\frac{1}{c_t}=-\lambda_t\\
-&\lambda_t\big[R_{2,t}+\Phi_b b_{2,t}\big]-\lambda_{t+2}\beta^2=0\\
-&\lambda_t \big[p_t + \Phi_s (s_t-s_{t-1})\big] + \lambda_{t+1} \beta \big[\Phi_s p_{t+1}^2 (s_t-s_{t+1}) - p_{t+1}-d_{t+1}\big]=0
-\end{align}
-Solve prices (demand functions):
-\begin{align}
-&R_{2,t}=\beta^2\frac{c_t}{c_{t+1}}-b_{2,t}\\
-&p_t=\frac{c_t}{c_{t+1}}\beta \bigg[ \Phi_s (s_{t+1}-s_t)+p_{t+1}+d_{t+1} \bigg] - \Phi_s (s_t - s_{t-1})
+&c^{ff}=c^{fh}(1+\tau_c)\\
+&R^f_{1,t}=\frac{c^{ff}_t}{c^{ff}_{t+1}}\beta\\
+&R^h_{1,t}=R^f_{1,t} \big[1+\Phi_{bfh} (b^{fh}_{1,t+1} - b^{fh}_{1,t})\big] -\Phi_{bfh} (b^{fh}_{1,t}-b^{fh}_{1,t-1})\\
+&R^h_{2,_t}=R^f_{1,t} \big[R^{h}_{1,t+1}+\Phi_{bfh} (b^{fh}_{2,t+1} - b^{fh}_{2,t})\big] -\Phi_{bfh} (b^{fh}_{2,t}-b^{fh}_{2,t-1})\\
+&p^{h}_t=R^f_{1,t} \bigg[ \Phi_{sfh} (s^{fh}_{t+1}-s^{fh}_t)+p^{h}_{t+1}+d^{h}_{t+1} \bigg] - \Phi_{sfh} (s^{fh}_t - s^{fh}_{t-1})
 \end{align}
 
 \end{document}
