@@ -41,7 +41,7 @@ Solve:
 &\max \Sigma_{i=0}^\infty \beta^i u(c_{t+i})\\ &\text{s.t}\\
 &c^{ff}_t+c^{fh}_t(1+\tau_c)+R^h_{2,t} b^{fh}_{2,t} + \frac{\Phi_{bfh}}{2}(b^{fh}_{2,t}-b^{fh}_{2,t-1})^2 +
 R^h_{1,t} b^{fh}_{1,t} + \\ 
-&\frac{\Phi_{bfh}}{2}(b^{fh}_{1,t}-b^{fh}_{1,t-1})^2 + p^{h}_t s^{fh}_t+\frac{\Phi_{sfh}}{2}(s^{fh}_t-s^{fh}_{t-1})^2+R^f_{1,t}b^f_{1,t}\\&=g^f_t+s^{fh}_{t-1}(p^{h}_t+d^{h}_t)+R^{h}_{1,t}b^{fh}_{2,t-1}+b^h_{1,t-1}+b^f_{1,t-1}\\
+&\frac{\Phi_{bfh}}{2}(b^{fh}_{1,t}-b^{fh}_{1,t-1})^2 + p^{h}_t s^{fh}_t+\frac{\Phi_{sfh}}{2}(s^{fh}_t-s^{fh}_{t-1})^2+R^f_{1,t}b^f_{1,t}+p^h_t s^{ff}_t\\&=g^f_t+s^f_{t-1}*(p^f_t+d^f_t+)s^{fh}_{t-1}(p^{h}_t+d^{h}_t)+R^{h}_{1,t}b^{fh}_{2,t-1}+b^h_{1,t-1}+b^f_{1,t-1}\\
 \end{align*}
 
 
@@ -60,7 +60,36 @@ Solve:
 &R^f_{1,t}=\frac{c^{ff}_t}{c^{ff}_{t+1}}\beta\\
 &R^h_{1,t}=R^f_{1,t} \big[1+\Phi_{bfh} (b^{fh}_{1,t+1} - b^{fh}_{1,t})\big] -\Phi_{bfh} (b^{fh}_{1,t}-b^{fh}_{1,t-1})\\
 &R^h_{2,_t}=R^f_{1,t} \big[R^{h}_{1,t+1}+\Phi_{bfh} (b^{fh}_{2,t+1} - b^{fh}_{2,t})\big] -\Phi_{bfh} (b^{fh}_{2,t}-b^{fh}_{2,t-1})\\
-&p^{h}_t=R^f_{1,t} \bigg[ \Phi_{sfh} (s^{fh}_{t+1}-s^{fh}_t)+p^{h}_{t+1}+d^{h}_{t+1} \bigg] - \Phi_{sfh} (s^{fh}_t - s^{fh}_{t-1})
+&p^{h}_t=R^f_{1,t} \big[ \Phi_{sfh} (s^{fh}_{t+1}-s^{fh}_t)+p^{h}_{t+1}+d^{h}_{t+1} \big] - \Phi_{sfh} (s^{fh}_t - s^{fh}_{t-1})\\
+&p^f_t=R^f_{1,t}\big[p^f_{t+1}+d^f_{t+1}\big]
 \end{align}
 
+\subsection{Governments}
+Home government:
+\begin{align}
+&b^h_{1,t} = b^{hh}_{1,t} + b^{fh}_{1,t}\\
+&b^h_{2,t} = b^{hh}_{2,t} + b^{fh}_{2,t}\\
+&b^h_{1,t} = b^h_{2,t-1}\\
+&b^h_{2,t} = (1-\alpha^h_{b})+\alpha^h_{b} b^h_{2,t-1}+\epsilon^h_{b,t}\\
+&g^h_t	   = b^h_{2,t}R^h_{2,t}-b^h_{2,t-2}
+\end{align}
+Foreign government:
+\begin{align}
+&b^f_{1,t} = (1-\alpha^f_b) + \alpha^f_b b^f_{1,t-1}+\epsilon^f_{b,t}\\
+&g^f_t 	= b^f_{1,t} R^f_{1,t}-b^f_{1,t-1}
+\end{align}
+
+
+\subsection{Firms}
+\begin{align}
+&s^{fh}_t+s^{hh}_t=1\\
+&d^h_t=d^h_{ss} (1-\alpha^h_d) +\alpha^h_d d^h_{t-1} + \epsilon^h_{d,t}\\
+&d^f_t=d^f_{ss} (1-\alpha^f_d) +\alpha^f_d d^f_{t-1} + \epsilon^f_{d,t}
+\end{align}
+
+\subsection{Aggregate budget constraints}
+\begin{align}
+&c^{hh}_t+c^{fh}_t=d^h_t - \tau_c c^{fh}_t -\frac{\Phi_b}{2}(b^{hh}_{2,t}-b^{hh}_{2,t-1})^2 - \frac{\Phi_b}{2}(b^{hh}_{1,t}-b^{hh}_{1,t-1})^2\\ \nonumber &-\frac{\Phi_s}{2}(s^{hh}_t-s^{hh}_{t-1})^2 - \frac{\Phi_{bfh}}{2}(b^{fh}_{2,t}-b^{fh}_{2,t-1})^2 -\frac{\Phi_{sfh}}{2}(s^{fh}_t-s^{fh}_{t-1})^2\\
+&c^{hf}_t + c^{ff}_t = d^f_t - \tau_c c^{hf}_t
+\end{align}
 \end{document}
