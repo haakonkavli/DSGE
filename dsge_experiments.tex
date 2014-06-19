@@ -13,12 +13,19 @@
 Experimental DSGE models of capital flows. 
 \end{abstract}
 
-\section{Holding cost for downward sloping demand}\label{HoldingCost}
+\section{Holding cost -> downward sloping demand}\label{HoldingCost}
 \begin{itemize}
 \item Overall goal: Build DSGE with unique steady state solution. Model should include foreign and domestic sector, and describe portfoli flows. 
 \item Section goal: Ensure downward sloping home and foreign demand for shares and bonds in steady state. 
 \item Tool: Quadratic cost of holding bonds and shares. 
 \item Base: RBC with exogenous dividends in shares and a global risk free one period bond
+\end{itemize}
+
+\subsubsection{Result:}
+\begin{itemize}
+\item Successfully find downward sloping demand for assets
+\item Successfully solve steady state for all variables by consumption
+\item To solve consumption: Must alter import tax function or utility function
 \end{itemize}
 
 \subsection{Home household}
@@ -62,7 +69,7 @@ Foreign household owns domestic shares, foreign shares and foreign bonds. They s
 \end{align*}
 Solve:
 \begin{align}
-&c^{ff}_t=c^{ff}_t(1+\tau_c)\\
+&c^{ff}_t=c^{fh}_t(1+\tau_c)\\
 &p^{h}_t=\beta E_t \bigg[\frac{c^{ff}_t}{c^{ff}_{t+1}} \bigg(  p^{h}_{t+1}+d^{h}_{t+1} \bigg) \bigg] - \Phi^{f}_s s^{fh}_t\\
 &p^{f}_t=\beta E_t \bigg[\frac{c^{ff}_t}{c^{ff}_{t+1}} \bigg(  p^{f}_{t+1}+d^{f}_{t+1} \bigg) \bigg]\\
 &R_t=\beta E_t \bigg[\frac{c^{ff}_t}{c^{ff}_{t+1}} \bigg] 
