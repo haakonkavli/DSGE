@@ -9,7 +9,7 @@ close all;
 %----------------------------------------------------------------
 
 var chh chf cfh cff shh sfh ph pf b1hh b1fh b1h b2h b2hh b2fh b1ff R1h R2h R1f gf gh dh df;
-varexo sh sff e_dh e_df e_b2h e_b1f d_ssh d_ssf sff;
+varexo sh e_dh e_df e_b2h e_b1f d_ssh d_ssf sff;
  
 parameters beta phi_b phi_bff phi_bfh phi_s phi_sfg phi_sfh tau_c alpha_bh alpha_bf alpha_dh alpha_df;
 
@@ -78,6 +78,17 @@ initval;
     e_b2h=0;
     d_ssh=1;
     d_ssf=1;
+
+    cff=1;
+    cfh=1/(1+tau_c);
+    chh=1;
+    cfh=1/(1+tau_c);
+
+    R1h=beta;
+    R2h=beta^2;
+    ph=dh/(1-beta);
+    pf=df/(1-beta);
+    R1f=beta;
 end;
 check;
 steady;

@@ -12,6 +12,116 @@
 \begin{abstract}
 Experimental DSGE models of capital flows. 
 \end{abstract}
+
+\section{Holding cost for downward sloping demand}\label{HoldingCost}
+\begin{itemize}
+\item Overall goal: Build DSGE with unique steady state solution. Model should include foreign and domestic sector, and describe portfoli flows. 
+\item Section goal: Ensure downward sloping home and foreign demand for shares and bonds in steady state. 
+\item Tool: Quadratic cost of holding bonds and shares. 
+\item Base: RBC with exogenous dividends in shares and a global risk free one period bond
+\end{itemize}
+
+\subsection{Home household}
+Home household owns domestic shares and spends dividends or sell assets to consume. In aggregate, consumption of home goods cannot exceed home share dividends. Note that foreigners can consume home goods and home household can consume foreign goods. The current account deficit will be funded by selling home shares to foreigners. 
+
+\begin{align*}
+&\max \Sigma_{i=0}^\infty \beta^i E_t \bigg(\ln(c^{hh}_{t+i})+ \ln(c^{hf}_{t+i}) \bigg)\\ &\text{s.t}\\
+&c^{hh}_t+c^{hf}_t(1+\tau_c)+ p^{h}_t s^{hh}_t+\frac{\Phi^h_s}{2}(s^{hh}_t)^2 =s^{hh}_{t-1}(p^{h}_t+d^{h}_t)\\
+\end{align*}
+Solve:
+\begin{align}
+&c^{hh}_t=c^{hf}_t(1+\tau_c)\\
+&p^{h}_t=\beta E_t \bigg[\frac{c^{hh}_t}{c^{hh}_{t+1}} \bigg(  p^{h}_{t+1}+d^{h}_{t+1} \bigg) \bigg] - \Phi^h_s s^{hh}_t
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Foreign household}
+Foreign household owns domestic shares, foreign shares and foreign bonds. They spend dividends or sell assets to consume. In aggregate, consumption of foreign goods cannot exceed foreign share dividends. There are no holding cost on foreign assets. 
+
+\begin{align*}
+&\max \Sigma_{i=0}^\infty \beta^i E_t \bigg(\ln(c^{ff}_{t+i})+ \ln(c^{fh}_{t+i}) \bigg)\\ &\text{s.t}\\
+&c^{ff}_t+c^{fh}_t(1+\tau_c)+ p^{h}_t s^{fh}_t+\frac{\Phi^f_s}{2}(s^{fh}_t)^2 + p^{f}_t s^{ff}_t+ R_t b_t=g_t+s^{fh}_{t-1}(p^{h}_t+d^{h}_t)+s^{ff}_{t-1}(p^{f}_t+d^{f}_t)+b_{t-1}\\
+\end{align*}
+Solve:
+\begin{align}
+&c^{ff}_t=c^{ff}_t(1+\tau_c)\\
+&p^{h}_t=\beta E_t \bigg[\frac{c^{ff}_t}{c^{ff}_{t+1}} \bigg(  p^{h}_{t+1}+d^{h}_{t+1} \bigg) \bigg] - \Phi^{f}_s s^{fh}_t\\
+&p^{f}_t=\beta E_t \bigg[\frac{c^{ff}_t}{c^{ff}_{t+1}} \bigg(  p^{f}_{t+1}+d^{f}_{t+1} \bigg) \bigg]\\
+&R_t=\beta E_t \bigg[\frac{c^{ff}_t}{c^{ff}_{t+1}} \bigg] 
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Foreign Government}
+Foreign government issues risk free one period bond.
+\begin{align}
+&b_{t} = b_{ss}(1-\alpha^b) + \alpha^b b_{t-1} + \epsilon^b_t\\
+&g_t	   = R_t b_{t}-b_{t-1}
+\end{align}
+
+
+\subsection{Firms}
+\begin{align}
+&s^{fh}_t+s^{hh}_t=1\\
+&d^h_t=d^h_{ss} (1-\alpha^{sh}) +\alpha^{sh}_d d^h_{t-1} + \epsilon^{sh}_{t}\\
+&d^f_t=d^f_{ss} (1-\alpha^{sf}) +\alpha^{sf}_d d^f_{t-1} + \epsilon^{sf}_{t}\\
+\end{align}
+
+\subsection{Aggregate budget constraints}
+\begin{align}
+&c^{hh}_t+c^{fh}_t=d^h_t - \tau_c c^{fh}_t -\frac{\Phi^{h}_s}{2}(s^{hh})^2 - \frac{\Phi^f_s}{2}(s^{fh})^2\\
+&c^{hf}_t + c^{ff}_t = d^f_t - \tau_c c^{hf}_t
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{No adjustment cost in steady state. Infinite solutions}\label{AdjustmentCost}
 \subsection{Home household with 2 period bond, 1 period bond and shares}
 \begin{align*}
 &\max \Sigma_{i=0}^\infty \beta^i u(c_{t+i})\\ &\text{s.t}\\
@@ -30,7 +140,7 @@ FOCs:
 \end{align*}
 Solve:
 \begin{align}
-&c^{hh}=c^{hf}(1+\tau_c)\\
+&c^{hh}_t=c^{hf}_t(1+\tau_c)\\
 &R^h_{1,_t}=\frac{c^{hh}_t}{c^{hh}_{t+1}}\beta \big[1+\Phi_b (b^{hh}_{1,t+1} - b^{hh}_{1,t})\big] -\Phi_b (b^{hh}_{1,t}-b^{hh}_{1,t-1})\\
 &R^h_{2,_t}=\frac{c^{hh}_t}{c^{hh}_{t+1}}\beta \big[R^{h}_{1,t+1}+\Phi_b (b^{hh}_{2,t+1} - b^{hh}_{2,t})\big] -\Phi_b (b^{hh}_{2,t}-b^{hh}_{2,t-1})\\
 &p^{h}_t=\frac{c^{hh}_t}{c^{hh}_{t+1}}\beta \bigg[ \Phi_s (s^{hh}_{t+1}-s^{hh}_t)+p^{h}_{t+1}+d^{h}_{t+1} \bigg] - \Phi_s (s^{hh}_t - s^{hh}_{t-1})
