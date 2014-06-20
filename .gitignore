@@ -1,7 +1,9 @@
 #Ignore Matlab and LaTeX files:
 *.log
 *.m
+!problem.m
 *.aux
 *.gz
 *.pdf
 *.asv
+*.out
