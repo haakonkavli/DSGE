@@ -1,38 +1,20 @@
-
 \documentclass[a4paper]{article}
 \usepackage[pdftex]{graphicx}	% compresses EPS files for PDF's
 \usepackage[left=2cm,top=2cm,right=2cm,bottom=3cm,nohead]{geometry}
 \usepackage{amsmath}
 \usepackage{hyperref}
-
 \begin{document}
-
-
 \title{Experimental RBC models with portfolio flows}
 \author{Haakon Kavli}
 \maketitle
 \begin{abstract}
-Experimental RBC models with portfolio flows. The most recent version is in section 1, the previous version in section 2, and so on. 
+Experimental RBC models with portfolio flows. 
 \end{abstract}
 
+\section{Document Summary}
+Experimental RBC models with portfolio flows. The most recent version is in section 1, the previous version in section 2, and so on. Each section begins with a summary of the goals for that particular section, changes from previous sections, and results. 
 
-
-\section{Simple two country RBC with three assets and quadratic holding cost and import cost}\label{SquareTax}
-\begin{itemize}
-\item Overall goal: Build  solvable DSGE that includes \emph{foreign} and domestic sector, and describes portfolio flows. 
-\item Section goal: Build upon model from section \ref{HoldingCost}, below. In this section I alter the import tax to ensure a steady state solution for consumption. All other variables had unique steady state solution in section \ref{HoldingCost}.
-\item Change from section \ref{HoldingCost}: Quadratic import tax (makes no empirical sense, but get rationale later??). 
-\item Base model: Two country RBC with exogenous dividends in shares and a global risk free one period bond.
-\end{itemize}
-
-\subsubsection{Result:}
-\begin{itemize}
-\item Successfully solved steady state manually and with fsolve in matlab. 
-\item Even by plugging steady state values into Dynare it still won't solve. 
-\item Next step: Figure out what is the problem in Dynare?? Or write own program to calculate and plot impulse responses. 
-\end{itemize}
-
-Notation: 
+\subsection{Notation:} 
 \begin{align*}
 &c^{ij} = \text{household } i \text{'s consumption of good from country } j \\
 &s^{ij} = \text{household } i \text{'s investment in shares from country } j \\
@@ -46,6 +28,85 @@ Notation:
 &\Phi^{i}_s = \text{household } i \text{'s cost of holding (squared) shares in }home\\
 &\tau_c = \text{cost of importing (squared) consumption good }
 \end{align*}
+
+
+\section{Simple two country RBC with two assets and quadratic holding cost and import cost}\label{SimplifySquareTax}
+\textbf{commit: none}
+\subsection{Summary}
+\subsubsection{Section Goals}
+\begin{itemize}
+\item Section goal: Simplify model from section \ref{SquareTax}, below.
+\item Change from section \ref{SquareTax}:  In this section I remove one asset (foreign shares) to see if it enables Dynare to solve for equilibrium holdings. 
+\item Base model: Two country RBC with exogenous dividends in shares and a global risk free one period bond.
+\end{itemize}
+
+\subsubsection{Section Result:}
+\begin{itemize}
+\item Still no Dynare solution in steady state (could solve manually)
+\end{itemize}
+
+\subsection{Foreign household}
+The foreign household is the only change to the model from section \ref{SquareTax}. I simply remove the foreigh shares and add exogenous dividends directly in the budget constraint. 
+
+\begin{align*}
+&\max \Sigma_{i=0}^\infty \beta^i E_t \bigg(\ln(c^{ff}_{t+i})+ \ln(c^{fh}_{t+i}) \bigg)\\ &\text{s.t}\\
+&c^{ff}_t+c^{fh}_t+\frac{\tau_c}{2}(c^{fh}_t)^2+ p^{h}_t s^{fh}_t+\frac{\Phi^f_s}{2}(s^{fh}_t)^2 + R_t b_t=g_t+s^{fh}_{t-1}(p^{h}_t+d^{h}_t)+d^{f}_t+b_{t-1}\\
+& \text{where the bond price is a function of the interest rate, $r_t$:}\\
+&R_t \equiv \frac{1}{1+r_t}
+\end{align*}
+Solve:
+\begin{align*}
+&c^{ff}_t=c^{fh}_t(1+\tau_c c^{fh}_t)\\
+&p^{h}_t=\beta E_t \bigg[\frac{c^{ff}_t}{c^{ff}_{t+1}} \bigg(  p^{h}_{t+1}+d^{h}_{t+1} \bigg) \bigg] - \Phi^{f}_s s^{fh}_t\\
+&R_t=\beta E_t \bigg[\frac{c^{ff}_t}{c^{ff}_{t+1}} \bigg] 
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Simple two country RBC with three assets and quadratic holding cost and import cost}\label{SquareTax}
+\textbf{commit:25e4abd166a2ce1be4e56b9eb9f54c55848fa75d}
+\subsection{Section goals and results}
+\subsubsection{Section summary}
+\begin{itemize}
+\item Section goal: Build upon model from section \ref{HoldingCost}, below. In this section I alter the import tax to ensure a steady state solution for consumption. All other variables had unique steady state solution in section \ref{HoldingCost}.
+\item Change from section \ref{HoldingCost}: Quadratic import tax (makes no empirical sense, but get rationale later??). 
+\item Base model: Two country RBC with exogenous dividends in shares and a global risk free one period bond.
+\end{itemize}
+
+\subsubsection{Section Result:}
+\begin{itemize}
+\item Successfully solved steady state manually and with fsolve in matlab. 
+\item Even by plugging steady state values into Dynare it still won't solve. 
+\item Next step: Figure out what is the problem in Dynare?? Or write own program to calculate and plot impulse responses. 
+\end{itemize}
+
+
 
 where $i,j$ are either $h$ for $home$ or $f$ for $foreign$. The $foreigner$ pays no holding cost on foreign assets, but does pay holding cost on $home$ shares. 
 
@@ -202,6 +263,8 @@ which gives the following steady state values:
 
 
 \section{Create downward sloping demand for assets}\label{HoldingCost}
+\subsection{Section goals and results}
+\subsubsection{Section summary}
 \begin{itemize}
 \item Overall goal: Build DSGE with unique steady state solution. Model should include \emph{foreign} and domestic sector, and describe portfoli flows. 
 \item Section goal: Ensure downward sloping \emph{home} and \emph{foreign} demand for shares and bonds in steady state. 
@@ -209,7 +272,7 @@ which gives the following steady state values:
 \item Base: RBC with exogenous dividends in shares and a global risk free one period bond
 \end{itemize}
 
-\subsubsection{Result:}
+\subsubsection{Section Result:}
 \begin{itemize}
 \item Successfully find downward sloping demand for assets
 \item Successfully solve steady state for all variables by consumption
