@@ -35,7 +35,7 @@ alpha_sf   = 0.8;
 % 3. Model
 %----------------------------------------------------------------
 
-model;    
+model(linear);    
 %Home agent FOCs: 
     p      =beta*((c/c(+1))^rho) * (p(+1)+d(+1)) - phi*s;
 %Foreign agent FOCs:
